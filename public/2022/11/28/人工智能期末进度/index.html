@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#b30202"><meta name="author" content="W0w"><meta name="copyright" content="W0w"><meta name="generator" content="Hexo 6.3.0"><meta name="theme" content="hexo-theme-yun"><title>人工智能期末进度 | W0w blog</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="icon" type="image/png" href="/images/tuanzi.png"><link rel="mask-icon" href="/images/tuanzi.png" color="#b30202"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"yuanyuan.me","root":"/","title":"siyuansiyuan","version":"1.10.9","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="要求 第一章基本概念   逻辑推理自然语言翻译命题逻辑和一阶逻辑  任意形式逻辑表达式转换为CNF  消解反证法证明定理  贝叶斯网路D分离参考  贝叶斯网络联合概率求其他事情  prolog填空题（弄懂那个例子就行） 参考1(那个图画的不错，但不知道对不对) 参考2  神经网络 一张图参考1 参考2   作业参考hw1  4  hw2  1  2  part a  part b  part c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人工智能期末进度">
+<meta property="og:url" content="http://yuanyuan.me/2022/11/28/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E8%BF%9B%E5%BA%A6/index.html">
+<meta property="og:site_name" content="W0w blog">
+<meta property="og:description" content="要求 第一章基本概念   逻辑推理自然语言翻译命题逻辑和一阶逻辑  任意形式逻辑表达式转换为CNF  消解反证法证明定理  贝叶斯网路D分离参考  贝叶斯网络联合概率求其他事情  prolog填空题（弄懂那个例子就行） 参考1(那个图画的不错，但不知道对不对) 参考2  神经网络 一张图参考1 参考2   作业参考hw1  4  hw2  1  2  part a  part b  part c">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yuanyuan.me/images/IMG_1039.JPG">
+<meta property="og:image" content="http://yuanyuan.me/images/insert_ai1.png">
+<meta property="og:image" content="http://yuanyuan.me/images/insert_ai2.png">
+<meta property="article:published_time" content="2022-11-28T14:19:52.000Z">
+<meta property="article:modified_time" content="2022-12-03T15:03:14.717Z">
+<meta property="article:author" content="W0w">
+<meta property="article:tag" content="人工智能">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yuanyuan.me/images/IMG_1039.JPG"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="W0w"><img width="96" loading="lazy" src="/images/tuanzi.png" alt="W0w"></a><div class="site-author-name"><a href="/about/">W0w</a></div><span class="site-name">W0w blog</span><sub class="site-subtitle">今天来点大家想看的东西</sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">7</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">3</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">10</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/zhaosiyuan1098" title="GitHub" target="_blank" style="color:#181717"><span class="icon iconify" data-icon="ri:github-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/35663780?spm_id_from=333.1007.0.0" title="my bilibili" target="_blank" style="color:#FF8EB3"><span class="icon iconify" data-icon="ri:bilibili-line"></span></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/girls/" title="我的女朋友们" style="color:dodgerblue"><span class="icon iconify" data-icon="mdi:face-female-shimmer"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A6%81%E6%B1%82"><span class="toc-number">1.</span> <span class="toc-text">要求</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A%E5%8F%82%E8%80%83"><span class="toc-number">2.</span> <span class="toc-text">作业参考</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#hw1"><span class="toc-number">2.1.</span> <span class="toc-text">hw1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hw2"><span class="toc-number">2.2.</span> <span class="toc-text">hw2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hw3"><span class="toc-number">2.3.</span> <span class="toc-text">hw3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hw4"><span class="toc-number">2.4.</span> <span class="toc-text">hw4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hw5-%E8%A7%84%E5%88%92%E5%BA%94%E8%AF%A5%E6%98%AF%E6%B2%A1%E5%AD%A6"><span class="toc-number">2.5.</span> <span class="toc-text">hw5 规划应该是没学</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hw6"><span class="toc-number">2.6.</span> <span class="toc-text">hw6</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hw7"><span class="toc-number">2.7.</span> <span class="toc-text">hw7</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="toc-number">3.</span> <span class="toc-text">三次作业</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#b30202;"><link itemprop="mainEntityOfPage" href="http://yuanyuan.me/2022/11/28/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E8%BF%9B%E5%BA%A6/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="W0w"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="W0w blog"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">人工智能期末进度</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2022-11-28 22:19:52" itemprop="dateCreated datePublished" datetime="2022-11-28T22:19:52+08:00">2022-11-28</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2022-12-03 23:03:14" itemprop="dateModified" datetime="2022-12-03T23:03:14+08:00">2022-12-03</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E5%AD%A6%E4%B9%A0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">学习</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">人工智能</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h1><ul>
+<li><p>第一章基本概念 </p>
+</li>
+<li><p>逻辑推理自然语言翻译命题逻辑和一阶逻辑</p>
+</li>
+<li><p>任意形式逻辑表达式转换为CNF</p>
+</li>
+<li><p>消解反证法证明定理</p>
+</li>
+<li><p>贝叶斯网路D分离<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/274314301">参考</a></p>
+</li>
+<li><p>贝叶斯网络联合概率求其他事情</p>
+</li>
+<li><p>prolog填空题（弄懂那个例子就行）</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiading/articles/12192564.html">参考1</a>(那个图画的不错，但不知道对不对) <a target="_blank" rel="noopener" href="https://www.cnblogs.com/lcomplete/p/3192488.html">参考2</a></p>
+</li>
+<li><p>神经网络 一张图<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/45213397">参考1</a> <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/166202095">参考2</a><br><img src="/../images/IMG_1039.JPG" alt="神经网络" loading="lazy"></p>
+</li>
+</ul>
+<h1 id="作业参考"><a href="#作业参考" class="headerlink" title="作业参考"></a>作业参考</h1><h2 id="hw1"><a href="#hw1" class="headerlink" title="hw1"></a>hw1</h2><ul>
+<li><input checked="" disabled="" type="checkbox"> 4</li>
+</ul>
+<h2 id="hw2"><a href="#hw2" class="headerlink" title="hw2"></a>hw2</h2><ul>
+<li><input checked="" disabled="" type="checkbox"> 1</li>
+<li><input checked="" disabled="" type="checkbox"> 2<ul>
+<li><input checked="" disabled="" type="checkbox"> part a</li>
+<li><input checked="" disabled="" type="checkbox"> part b</li>
+<li><input checked="" disabled="" type="checkbox"> part c</li>
+</ul>
+</li>
+</ul>
+<h2 id="hw3"><a href="#hw3" class="headerlink" title="hw3"></a>hw3</h2><ul>
+<li><p><input disabled="" type="checkbox"> 
+1</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+2<br><img src="/../images/insert_ai1.png" alt="练习题3节选" loading="lazy"></p>
+<p>   f.很有意思</p>
+<p>  <del>j.似乎超纲了</del>j也很有意思</p>
+</li>
+</ul>
+<h2 id="hw4"><a href="#hw4" class="headerlink" title="hw4"></a>hw4</h2><ul>
+<li><input disabled="" type="checkbox"> 1 course website</li>
+<li><input disabled="" type="checkbox"> 2<ul>
+<li><input checked="" disabled="" type="checkbox"> part a</li>
+<li><input disabled="" type="checkbox"> part b 不知道要不要掌握（skolem function）</li>
+<li><input disabled="" type="checkbox"> part c 看不懂</li>
+</ul>
+</li>
+</ul>
+<h2 id="hw5-规划应该是没学"><a href="#hw5-规划应该是没学" class="headerlink" title="hw5 规划应该是没学"></a>hw5 规划应该是没学</h2><h2 id="hw6"><a href="#hw6" class="headerlink" title="hw6"></a>hw6</h2><ul>
+<li><input checked="" disabled="" type="checkbox"> 1 个人感觉最有可能考</li>
+<li><input checked="" disabled="" type="checkbox"> 2 <ul>
+<li><input disabled="" type="checkbox"> 和贝叶斯网络可能有关系，有时间记得请证明下</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> 3 好像是上课讲的例子</li>
+</ul>
+<h2 id="hw7"><a href="#hw7" class="headerlink" title="hw7"></a>hw7</h2><ul>
+<li><input checked="" disabled="" type="checkbox"> uncertain</li>
+<li><input disabled="" type="checkbox"> complexity<ul>
+<li><p><input checked="" disabled="" type="checkbox"> 
+part a</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+part b</p>
+<p>不是很懂概率之和为1后为何参数会变成这样<br><img src="/../images/insert_ai2.png" alt="不懂得地方" loading="lazy"></p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+part c</p>
+</li>
+</ul>
+</li>
+<li>inferrence 太难了，看不懂</li>
+</ul>
+<hr>
+<h1 id="三次作业"><a href="#三次作业" class="headerlink" title="三次作业"></a>三次作业</h1></div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>W0w</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://yuanyuan.me/2022/11/28/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E8%BF%9B%E5%BA%A6/" title="人工智能期末进度">http://yuanyuan.me/2022/11/28/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E8%BF%9B%E5%BA%A6/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2022/12/03/cs231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B014/" rel="prev" title="cs231n学习笔记14-深度增强学习"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">cs231n学习笔记14-深度增强学习</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2022/11/28/markdown%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="next" title="markdown语法学习记录"><span class="post-nav-text">markdown语法学习记录</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2023 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> W0w</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.9</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#b30202" stroke-width="2" stroke-linecap="round"></circle></svg></a><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script><script>const images = [...document.querySelectorAll('.markdown-body img')]
+mediumZoom(images)</script><style>.medium-zoom-image {
+  z-index: 99;
+}</style></body></html>

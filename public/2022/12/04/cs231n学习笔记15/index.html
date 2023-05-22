@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#b30202"><meta name="author" content="W0w"><meta name="copyright" content="W0w"><meta name="generator" content="Hexo 6.3.0"><meta name="theme" content="hexo-theme-yun"><title>cs231n学习笔记15 | W0w blog</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script type="module">import { renderKatex } from '/js/utils.js'
+document.addEventListener("DOMContentLoaded", () => {
+  renderKatex({
+    ...{},
+    ...true?.options,
+  });
+});</script><link rel="icon" type="image/png" href="/images/tuanzi.png"><link rel="mask-icon" href="/images/tuanzi.png" color="#b30202"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"yuanyuan.me","root":"/","title":"siyuansiyuan","version":"1.10.9","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="参考：  课程官网 视频      硬件引言深度学习发展带来的问题：  模型规模 训练速度 能耗比  硬件基础知识CPU+GPUcpu单线程（一头大象） gpu吞吐量导向（一群蚂蚁） FPGA+ASIC 选择16位&#x2F;32位表示数据有较为优秀的能效比。（16&gt;32) 算法修剪因为并非所有参数都有用，可选择性去掉冗余连接，并重复迭代训练。 训练—&gt;剪枝—&gt;训练剩余参数—&amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs231n学习笔记15">
+<meta property="og:url" content="http://yuanyuan.me/2022/12/04/cs231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B015/index.html">
+<meta property="og:site_name" content="W0w blog">
+<meta property="og:description" content="参考：  课程官网 视频      硬件引言深度学习发展带来的问题：  模型规模 训练速度 能耗比  硬件基础知识CPU+GPUcpu单线程（一头大象） gpu吞吐量导向（一群蚂蚁） FPGA+ASIC 选择16位&#x2F;32位表示数据有较为优秀的能效比。（16&gt;32) 算法修剪因为并非所有参数都有用，可选择性去掉冗余连接，并重复迭代训练。 训练—&gt;剪枝—&gt;训练剩余参数—&amp;g">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yuanyuan.me/_posts/cs231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B015/1.png">
+<meta property="article:published_time" content="2022-12-04T13:28:05.000Z">
+<meta property="article:modified_time" content="2022-12-05T11:42:35.238Z">
+<meta property="article:author" content="W0w">
+<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="神经网络">
+<meta property="article:tag" content="硬件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yuanyuan.me/_posts/cs231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B015/1.png"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="W0w"><img width="96" loading="lazy" src="/images/tuanzi.png" alt="W0w"></a><div class="site-author-name"><a href="/about/">W0w</a></div><span class="site-name">W0w blog</span><sub class="site-subtitle">今天来点大家想看的东西</sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">7</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">3</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">10</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/zhaosiyuan1098" title="GitHub" target="_blank" style="color:#181717"><span class="icon iconify" data-icon="ri:github-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/35663780?spm_id_from=333.1007.0.0" title="my bilibili" target="_blank" style="color:#FF8EB3"><span class="icon iconify" data-icon="ri:bilibili-line"></span></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/girls/" title="我的女朋友们" style="color:dodgerblue"><span class="icon iconify" data-icon="mdi:face-female-shimmer"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">硬件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.2.</span> <span class="toc-text">硬件基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CPU-GPU"><span class="toc-number">1.2.1.</span> <span class="toc-text">CPU+GPU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FPGA-ASIC"><span class="toc-number">1.2.2.</span> <span class="toc-text">FPGA+ASIC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E5%89%AA"><span class="toc-number">1.3.1.</span> <span class="toc-text">修剪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%83%E5%80%BC%E5%85%B1%E4%BA%AB"><span class="toc-number">1.3.2.</span> <span class="toc-text">权值共享</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81"><span class="toc-number">1.3.3.</span> <span class="toc-text">哈夫曼编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8F%E5%8C%96"><span class="toc-number">1.3.4.</span> <span class="toc-text">量化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8E%E7%A7%A9%E8%BF%91%E4%BC%BC"><span class="toc-number">1.3.5.</span> <span class="toc-text">低秩近似</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wingrad%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.3.6.</span> <span class="toc-text">wingrad转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E6%96%AD"><span class="toc-number">1.4.</span> <span class="toc-text">推断</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TPU"><span class="toc-number">1.4.1.</span> <span class="toc-text">TPU</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83"><span class="toc-number">1.5.</span> <span class="toc-text">训练</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E5%8C%96"><span class="toc-number">1.5.1.</span> <span class="toc-text">并行化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6"><span class="toc-number">1.5.2.</span> <span class="toc-text">混合精度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%92%B8%E9%A6%8F"><span class="toc-number">1.5.3.</span> <span class="toc-text">模型蒸馏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6-1"><span class="toc-number">1.6.</span> <span class="toc-text">硬件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GPU"><span class="toc-number">1.6.1.</span> <span class="toc-text">GPU</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%B9%E6%8A%97%E6%A0%B7%E6%9C%AC%E5%92%8C%E8%AE%AD%E7%BB%83"><span class="toc-number">2.</span> <span class="toc-text">对抗样本和训练</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E6%8A%97%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90"><span class="toc-number">2.1.</span> <span class="toc-text">对抗样本生成</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#b30202;"><link itemprop="mainEntityOfPage" href="http://yuanyuan.me/2022/12/04/cs231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B015/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="W0w"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="W0w blog"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">cs231n学习笔记15</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2022-12-04 21:28:05" itemprop="dateCreated datePublished" datetime="2022-12-04T21:28:05+08:00">2022-12-04</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2022-12-05 19:42:35" itemprop="dateModified" datetime="2022-12-05T19:42:35+08:00">2022-12-05</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E5%AD%A6%E4%B9%A0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">学习</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">计算机视觉</span></a><a class="tag-item" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">神经网络</span></a><a class="tag-item" href="/tags/%E7%A1%AC%E4%BB%B6/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">硬件</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://cs231n.stanford.edu/">课程官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1nJ411z7fe?p=33&vd_source=e7ba1b5c6c81d48eeecd2099401b1614">视频</a></li>
+</ul>
+<iframe src="//player.bilibili.com/player.html?aid=77752864&bvid=BV1nJ411z7fe&cid=133014498&page=33" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+
+<h1 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h1><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>深度学习发展带来的问题：</p>
+<ul>
+<li>模型规模</li>
+<li>训练速度</li>
+<li>能耗比</li>
+</ul>
+<h2 id="硬件基础知识"><a href="#硬件基础知识" class="headerlink" title="硬件基础知识"></a>硬件基础知识</h2><h3 id="CPU-GPU"><a href="#CPU-GPU" class="headerlink" title="CPU+GPU"></a>CPU+GPU</h3><p>cpu单线程（一头大象） gpu吞吐量导向（一群蚂蚁）</p>
+<h3 id="FPGA-ASIC"><a href="#FPGA-ASIC" class="headerlink" title="FPGA+ASIC"></a>FPGA+ASIC</h3><hr>
+<p>选择16位&#x2F;32位表示数据有较为优秀的能效比。（16&gt;32)</p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="修剪"><a href="#修剪" class="headerlink" title="修剪"></a>修剪</h3><p>因为并非所有参数都有用，可选择性去掉冗余连接，并重复迭代训练。</p>
+<p>训练—&gt;剪枝—&gt;训练剩余参数—&gt;循环</p>
+<p>此操作会改变参数的分布</p>
+<h3 id="权值共享"><a href="#权值共享" class="headerlink" title="权值共享"></a>权值共享</h3><p>将权重聚类，用聚类中心表示权重值，防止过拟合并减少内存消耗</p>
+<p>梯度下降过程会对权重中心产生微小的调整</p>
+<h3 id="哈夫曼编码"><a href="#哈夫曼编码" class="headerlink" title="哈夫曼编码"></a>哈夫曼编码</h3><p>用较短编码表示较常出现数字减少存储消耗</p>
+<h3 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h3><p>表示数字所用的存储位数不同。在一定范围内，减少表示数字所用的存储位数并不会导致网络性能大幅下降。</p>
+<h3 id="低秩近似"><a href="#低秩近似" class="headerlink" title="低秩近似"></a>低秩近似</h3><p>将一个卷积拆分成两个较小的卷积&#x2F;在全连接层使用SVD分解将一个矩阵分解成两个矩阵—&gt;加速</p>
+<h3 id="wingrad转换"><a href="#wingrad转换" class="headerlink" title="wingrad转换"></a>wingrad转换</h3><p>减少矩阵乘法实现时，简单乘法的运算次数</p>
+<h2 id="推断"><a href="#推断" class="headerlink" title="推断"></a>推断</h2><h3 id="TPU"><a href="#TPU" class="headerlink" title="TPU"></a>TPU</h3><p>有较大的cache，大量的乘法运算单元</p>
+<p>相较于CPU、GPU，TPU的存储带宽更大</p>
+<p>瓶颈：存储带宽—&gt;运算性能</p>
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><h3 id="并行化"><a href="#并行化" class="headerlink" title="并行化"></a>并行化</h3><p>发展现状：</p>
+<ul>
+<li>单线程能力发展趋于瓶颈</li>
+<li>内核数增加</li>
+</ul>
+<p>—&gt;数据并行：从节点各自训练一组数据，然后将梯度传给参数服务器</p>
+<p>—&gt;模型并行：将模型拆分，分别传给不同的处理器&#x2F;线程（类似算法课程中矩阵乘法复杂度下降的改进方法）</p>
+<h3 id="混合精度"><a href="#混合精度" class="headerlink" title="混合精度"></a>混合精度</h3><p>混合使用float16和float32数据类型</p>
+<ul>
+<li><p>16位精度：乘法</p>
+</li>
+<li><p>32位精度：加法、存储</p>
+</li>
+</ul>
+<p>使用此方法精度会稍微下降一丢丢</p>
+<h3 id="模型蒸馏"><a href="#模型蒸馏" class="headerlink" title="模型蒸馏"></a>模型蒸馏</h3><p>使用大型有效的模型教学生模型，是学生模型有较为优秀的表现。</p>
+<p>—&gt;使用多个大型有效的网络结果获得的软标签（soft label）训练学生模型</p>
+<p>（Dense-Sparse-Dense模型)</p>
+<h2 id="硬件-1"><a href="#硬件-1" class="headerlink" title="硬件"></a>硬件</h2><h3 id="GPU"><a href="#GPU" class="headerlink" title="GPU"></a>GPU</h3><p>Tensor Core:实现4x4矩阵的混合精度乘法。</p>
+<p>适用于：科学计算、图形计算、AR\VR<br>…</p>
+<h1 id="对抗样本和训练"><a href="#对抗样本和训练" class="headerlink" title="对抗样本和训练"></a>对抗样本和训练</h1><p>认知流程：</p>
+<ul>
+<li>过拟合—&gt;发现不同的网络很容易对同一个对抗样本产生同样的错误分类结果—&gt;过拟合观点错误</li>
+<li>欠拟合（对距离分割平面较远的样本有很高的置信度）</li>
+</ul>
+<h2 id="对抗样本生成"><a href="#对抗样本生成" class="headerlink" title="对抗样本生成"></a>对抗样本生成</h2><p><img src="/../_posts/cs231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B015/1.png" alt="相同" loading="lazy"></p>
+<p>—&gt;避免出现顶端、底端这样的极端情况—&gt;快速梯度符方法FGSM—&gt;成功率约99%</p>
+</div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>W0w</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://yuanyuan.me/2022/12/04/cs231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B015/" title="cs231n学习笔记15">http://yuanyuan.me/2022/12/04/cs231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B015/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2022/12/06/xgp/" rel="prev" title="xgp开通教程"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">xgp开通教程</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2022/12/03/cs231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B014/" rel="next" title="cs231n学习笔记14-深度增强学习"><span class="post-nav-text">cs231n学习笔记14-深度增强学习</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2023 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> W0w</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.9</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#b30202" stroke-width="2" stroke-linecap="round"></circle></svg></a><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script><script>const images = [...document.querySelectorAll('.markdown-body img')]
+mediumZoom(images)</script><style>.medium-zoom-image {
+  z-index: 99;
+}</style></body></html>
